@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import colors from '../../theme/colors'
 
-export default function UserInput({ placeholder, placeholderTextColor, onChangeText, value, secureTextEntry, maxLength,keyboardType}) {
+export default function UserInput({ placeholder, placeholderTextColor, onChangeText, value, secureTextEntry, maxLength,keyboardType, ...props}) {
     const[hasFocus, setHasFocus]=useState(false);
    
     return (
@@ -12,7 +12,7 @@ export default function UserInput({ placeholder, placeholderTextColor, onChangeT
                 placeholderTextColor={placeholderTextColor}
                 onChangeText={onChangeText}
                 value={value}
-                style={hasFocus?styles.focustextinput:styles.textinput}
+                style={[hasFocus?styles.focustextinput :styles.textinput,props.style]}
                 secureTextEntry={secureTextEntry}
                 maxLength={maxLength}
                 onFocus={()=>setHasFocus(true)}
