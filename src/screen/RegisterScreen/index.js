@@ -28,7 +28,7 @@ export default function RegisterScreen() {
         }
         else{
 
-            Alert.alert('Button Pressed')
+            navigation.navigate('OtpScreen')
         }
     }
     const navigation=useNavigation();

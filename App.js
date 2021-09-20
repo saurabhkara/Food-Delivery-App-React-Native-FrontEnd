@@ -6,6 +6,7 @@ import SplashScreen from './src/screen/SplashScreen/index'
 import WelcomeScreen from './src/screen/WelcomeScreen/index';
 import LoginScreen from './src/screen/LoginScreen';
 import RegisterScreen from './src/screen/RegisterScreen';
+import OtpScreen from './src/screen/OtpScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Stack.Screen name="OtpScreen" component={OtpScreen} />
       </Stack.Navigator>
   );
 
