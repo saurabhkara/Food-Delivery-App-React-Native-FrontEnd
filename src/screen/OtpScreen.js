@@ -18,11 +18,16 @@ class OtpScreen extends Component {
         }
     }
    
+    componentDidMount(){
+        
+        console.log(JSON.stringify(this.props.route.params.phone));
+    }
     _checkCode=(code)=>{
         // Alert.alert(code);
     }
     verifyOTP=()=>{
-        Alert.alert(this.state.code);
+        console.log(JSON.stringify(this.props.route.params.phone));
+        Alert.alert(JSON.stringify(this.props.route.params.phone));
     }
     render() {
         return (
@@ -33,7 +38,7 @@ class OtpScreen extends Component {
                 </View>
                 <View style={{display:'flex', alignItems:'center', paddingHorizontal:20}} >
                     <Text style={styles.header}>OTP Verification</Text>
-                    <Text style={styles.subHeader}>Please enter Verification code sent to your mobile Number</Text>
+                    <Text style={styles.subHeader}>Please enter Verification code sent to your mobile Number {this.props.route.params.phone}</Text>
                 </View>
                 <View style={{alignItems:'center',margin:20,}}>
                     <SmoothPinCodeInput

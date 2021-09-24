@@ -9,18 +9,20 @@ import Button from '../../component/Button';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterScreen() {
     
     const[name, onChangeName]=useState();
     const[mobile, onChangeMobile]=useState();
     const[password, onChangePassword]=useState();
+    const navigation=useNavigation();
 
     const buttonClick=()=>{
-        if(name.trim().length <3){
+        if(name==undefined || name.trim().length <3 ){
             Toast.show('Please Enter Valid Name', Toast.LONG);
         }
-        else if( mobile.trim().length !==10 ){
+        else if( mobile.trim().length !==10 ||mobile==undefined){
             Toast.show('Please Enter Valid Mobile Number', Toast.LONG);
         }
         else if( password==undefined || password.trim().length <6){
@@ -28,10 +30,24 @@ export default function RegisterScreen() {
         }
         else{
 
-            navigation.navigate('OtpScreen')
+            // navigation.navigate('OtpScreen',{phone:mobile})
+
+            const data={
+                'name':name,
+                'mobile':mobile,
+                'password':password,
+            }
+
+            storeData(JSON.stringify(data));
         }
     }
-    const navigation=useNavigation();
+
+
+    const storeData= async (value)=>{
+        try{
+            await AsyncStorage.setItem('user', value)
+        }catch(err){console.log(err)}
+    }
     return (
         <View style={styles.container}>
             <AppStatusBar />

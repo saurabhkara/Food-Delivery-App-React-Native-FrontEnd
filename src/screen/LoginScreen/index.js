@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { View, Text, StyleSheet, ScrollView, TextInput, Alert, TouchableOpacity } from 'react-native';
 import colors from '../../theme/colors';
 import AppStatusBar from '../../component/AppStatusBar';
@@ -9,25 +9,47 @@ import Button from '../../component/Button';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import Toast from 'react-native-simple-toast';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function LoginScreen() {
     const[mobile, onChangeMobile]=useState();
     const[password, onChangePassword]=useState();
+    const navigation=useNavigation();
+
+    const [user, setUser]=useState();
 
     const buttonClick=()=>{
-        if( mobile.trim().length !==10 ){
+        if( mobile==undefined ||mobile.trim().length !==10 ){
             Toast.show('Please Enter Valid Mobile Number', Toast.LONG);
         }
         else if( password==undefined || password.trim().length <6){
             Toast.show('Please Enter Valid Password', Toast.LONG);
         }
         else{
-
-            Alert.alert('Button Pressed')
+             if(mobile===user.mobile && password===user.password)
+            Alert.alert('Login Successfully')
         }
 
     }
-    const navigation=useNavigation()
+
+    useEffect(()=>{
+        getData()
+       
+    },[])
+
+    const getData= async()=>{
+        try{
+            
+            const value= await AsyncStorage.getItem('user');
+            const data=JSON.parse(value);
+            setUser(data);
+            // console.log(data);
+        }catch(err){
+            console.log(err)
+        }
+    }
+   
     return (
         <View style={styles.container}>
             <AppStatusBar />
